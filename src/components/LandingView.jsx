@@ -61,7 +61,7 @@ export default function LandingView({ onStart }) {
           {/* Button glow effect */}
           <div className="absolute inset-0 rounded-full bg-white/5 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <span className="relative z-10 flex items-center gap-2">
-            🙏 開始許願
+            開始許願
           </span>
         </button>
 

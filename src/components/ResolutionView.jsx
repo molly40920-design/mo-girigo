@@ -11,8 +11,8 @@ export default function ResolutionView({ wager, onReset }) {
         await navigator.share({
           title: '決戰對賭協議',
           text: isSuccess 
-            ? `我成功達成了目標：「${wager.goal}」！\n這就是自律的實力！😎`
-            : `我挑戰失敗了... \n目標：「${wager.goal}」\n我會乖乖兌現代價：「${wager.penalty}」😭`,
+            ? `我成功達成了目標：「${wager.goal}」！\n這就是自律的實力！`
+            : `我挑戰失敗了... \n目標：「${wager.goal}」\n我會乖乖兌現代價：「${wager.penalty}」`,
           url: window.location.href
         })
         return
@@ -38,33 +38,17 @@ export default function ResolutionView({ wager, onReset }) {
         {showToast && (
           <div className="fixed top-10 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up">
             <div className="bg-gray-800/90 backdrop-blur-md border border-white/20 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-2 whitespace-nowrap">
-              <span className="text-lg">📸</span>
+
               <span className="text-sm font-medium tracking-wide">請截圖此畫面分享至限時動態</span>
             </div>
           </div>
         )}
         <div className="w-full max-w-[380px] aspect-[9/16] bg-gradient-to-b from-emerald-950/90 to-gray-950/95 border border-emerald-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-sm animate-border-glow-green relative">
 
-          {/* Confetti overlay */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {[...Array(12)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute text-lg"
-                style={{
-                  left: `${8 + (i * 7.5)}%`,
-                  top: `${5 + (i % 3) * 10}%`,
-                  animation: `confetti-fall ${2 + (i % 3)}s ease-in ${i * 0.2}s infinite`,
-                }}
-              >
-                {['🎉', '⭐', '🏆', '✨', '🎊', '💪'][i % 6]}
-              </div>
-            ))}
-          </div>
 
           {/* Header */}
           <div className="pt-10 pb-4 px-6 text-center relative z-10">
-            <div className="text-6xl mb-4">🏆</div>
+
             <h2 className="text-3xl font-black text-emerald-400 tracking-tight">
               挑戰成功！
             </h2>
@@ -114,7 +98,7 @@ export default function ResolutionView({ wager, onReset }) {
               onClick={handleShare}
               className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-gray-950 font-black text-sm tracking-wider shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
             >
-              🎉 炫耀戰果
+              炫耀戰果
             </button>
             <button
               id="btn-new-success"
@@ -143,7 +127,7 @@ export default function ResolutionView({ wager, onReset }) {
       {showToast && (
         <div className="fixed top-10 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up">
           <div className="bg-gray-800/90 backdrop-blur-md border border-white/20 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-2 whitespace-nowrap">
-            <span className="text-lg">📸</span>
+
             <span className="text-sm font-medium tracking-wide">請截圖此畫面分享至限時動態</span>
           </div>
         </div>
@@ -152,7 +136,7 @@ export default function ResolutionView({ wager, onReset }) {
 
         {/* Header */}
         <div className="pt-10 pb-4 px-6 text-center">
-          <div className="text-6xl mb-4">💀</div>
+
           <h2 className="text-3xl font-black text-red-400 tracking-tight">
             挑戰失敗...
           </h2>
@@ -185,7 +169,7 @@ export default function ResolutionView({ wager, onReset }) {
               <div className="w-12 h-px bg-red-500/20 mx-auto" />
 
               <div>
-                <p className="text-[10px] text-red-400 uppercase tracking-wider mb-1">⚠️ 應履行代價</p>
+                <p className="text-[10px] text-red-400 uppercase tracking-wider mb-1">應履行代價</p>
                 <p className="text-red-300 text-base font-black leading-relaxed break-words">
                   {wager.penalty}
                 </p>
@@ -209,7 +193,7 @@ export default function ResolutionView({ wager, onReset }) {
             onClick={handleShare}
             className="w-full py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-sm tracking-wider shadow-lg shadow-red-500/25 hover:shadow-red-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
           >
-            😈 面對現實分享限動
+            面對現實分享限動
           </button>
           <button
             id="btn-new-fail"

@@ -40,7 +40,7 @@ export default function SetupView({ onSubmit }) {
           {/* Goal Input */}
           <div className="space-y-2">
             <label className="text-xs font-semibold text-yellow-400/80 tracking-wider uppercase flex items-center gap-2">
-              <span className="text-yellow-500">⚡</span> 我的目標是...
+              我的目標是...
             </label>
             <textarea
               id="input-goal"
@@ -55,7 +55,7 @@ export default function SetupView({ onSubmit }) {
           {/* Penalty Input */}
           <div className="space-y-2">
             <label className="text-xs font-semibold text-red-400/80 tracking-wider uppercase flex items-center gap-2">
-              <span className="text-red-500">💀</span> 如果失敗，我願意...
+              如果失敗，我願意...
             </label>
             <textarea
               id="input-penalty"
@@ -70,7 +70,7 @@ export default function SetupView({ onSubmit }) {
           {/* Duration Buttons */}
           <div className="space-y-2">
             <label className="text-xs font-semibold text-gray-400 tracking-wider uppercase flex items-center gap-2">
-              <span>⏱️</span> 設定期限
+              設定期限
             </label>
             <div className="grid grid-cols-3 gap-2">
               {DURATION_OPTIONS.map(opt => (
@@ -103,7 +103,7 @@ export default function SetupView({ onSubmit }) {
                 : 'bg-gray-800 text-gray-600 cursor-not-allowed border border-gray-700'
             }`}
           >
-            {isValid ? '⚔️ 產生對賭合約' : '請填寫完整資訊'}
+            {isValid ? '產生對賭合約' : '請填寫完整資訊'}
           </button>
         </div>
       </div>
