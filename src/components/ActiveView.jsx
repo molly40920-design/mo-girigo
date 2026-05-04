@@ -1,5 +1,7 @@
 import { useCountdown } from '../hooks/useCountdown'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import AdBanner from './AdBanner'
+import AdPopup from './AdPopup'
 
 
 export default function ActiveView({ wager, onSuccess, onFail }) {
@@ -9,6 +11,24 @@ export default function ActiveView({ wager, onSuccess, onFail }) {
   )
 
   const [showToast, setShowToast] = useState(false)
+  const [isAdVisible, setIsAdVisible] = useState(false)
+
+  const triggerAd = () => {
+    const lastAdTime = sessionStorage.getItem('lastAdTime')
+    const now = Date.now()
+    // 10-second cooldown
+    if (!lastAdTime || now - parseInt(lastAdTime, 10) > 10000) {
+      sessionStorage.setItem('lastAdTime', now.toString())
+      setIsAdVisible(true)
+    }
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      triggerAd()
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -27,6 +47,9 @@ export default function ActiveView({ wager, onSuccess, onFail }) {
     // Fallback: show custom toast
     setShowToast(true)
     setTimeout(() => setShowToast(false), 3000)
+
+    // Trigger ad when sharing
+    triggerAd()
   }
 
   return (
@@ -41,6 +64,9 @@ export default function ActiveView({ wager, onSuccess, onFail }) {
           </div>
         </div>
       )}
+
+      {/* Ad Popup Overlay */}
+      {isAdVisible && <AdPopup onClose={() => setIsAdVisible(false)} />}
 
       {/* Floating particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -114,6 +140,9 @@ export default function ActiveView({ wager, onSuccess, onFail }) {
             />
           </div>
         </div>
+
+        {/* Ad Banner Component */}
+        <AdBanner />
 
         {/* Bottom: Action buttons */}
         <div className="w-full pb-8 space-y-3 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
