@@ -1,5 +1,5 @@
 export default function AdBanner() {
-  const adUrl = 'https://www.gametower.com.tw/Action/partygo/mixytalk0416/index.html?utm_source=quiz&utm_medium=display&utm_campaign=mega_traffic_2026&utm_content=3th_banner'
+  const adUrl = 'https://www.gametower.com.tw/Action/partygo/mixytalk0416/index.html?utm_source=girigo&utm_medium=display&utm_campaign=mega_traffic_2026&utm_content=1st_banner'
   const imgUrl = '/banner.png'
 
   return (
