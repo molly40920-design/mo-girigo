@@ -104,9 +104,9 @@ export default function ActiveView({ wager, onSuccess, onFail }) {
         <div className="flex-1 flex flex-col items-center justify-center">
 
           {/* Countdown Timer - Geometric/Pixel style */}
-          <div className={`text-center mb-8 ${isUrgent ? 'animate-countdown-pulse' : ''}`}>
+          <div className={`text-center mb-8 w-full ${isUrgent ? 'animate-countdown-pulse' : ''}`}>
             <div
-              className={`font-mono text-7xl font-extrabold tracking-[0.15em] ${
+              className={`font-mono text-[clamp(2rem,12vw,3.5rem)] font-extrabold tracking-tight flex justify-center items-center ${
                 isUrgent ? 'text-red-400' : 'text-white'
               }`}
               style={{
@@ -118,9 +118,9 @@ export default function ActiveView({ wager, onSuccess, onFail }) {
               }}
             >
               {hours}
-              <span className="text-white/30 mx-1">:</span>
+              <span className="text-white/30 mx-0.5">:</span>
               {minutes}
-              <span className="text-white/30 mx-1">:</span>
+              <span className="text-white/30 mx-0.5">:</span>
               {seconds}
             </div>
             {isUrgent && (
