@@ -4,7 +4,7 @@ import AdBanner from './AdBanner'
 import AdPopup from './AdPopup'
 
 
-export default function ActiveView({ wager, onSuccess, onFail }) {
+export default function ActiveView({ wager, onSuccess, onFail, isViewer = false, hasLocalWager = false }) {
   const { hours, minutes, seconds, isUrgent, totalSec } = useCountdown(
     wager.deadline,
     onFail
@@ -31,12 +31,27 @@ export default function ActiveView({ wager, onSuccess, onFail }) {
   }, [])
 
   const handleShare = async () => {
+    let shareUrl = window.location.href;
+    if (!isViewer) {
+      const url = new URL(window.location.href);
+      const data = {
+        g: wager.goal,
+        p: wager.penalty,
+        d: wager.deadline,
+        c: wager.createdAt,
+        s: wager.phase,
+        r: wager.result
+      };
+      url.searchParams.set('w', btoa(encodeURIComponent(JSON.stringify(data))));
+      shareUrl = url.toString();
+    }
+
     if (navigator.share) {
       try {
         await navigator.share({
           title: '決戰對賭協議',
           text: `我立下了對賭協議！\n目標：${wager.goal}\n代價：${wager.penalty}`,
-          url: window.location.href
+          url: shareUrl
         })
         return
       } catch (err) {
@@ -146,33 +161,44 @@ export default function ActiveView({ wager, onSuccess, onFail }) {
 
         {/* Bottom: Action buttons */}
         <div className="w-full pb-8 space-y-3 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          {isViewer ? (
+            <button
+              id="btn-back-to-own"
+              onClick={() => { window.location.href = '/' }}
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-500 text-gray-950 font-black text-sm tracking-wider shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+            >
+              {hasLocalWager ? '查看我的專屬合約' : '我也要立下對賭合約'}
+            </button>
+          ) : (
+            <>
+              {/* Share button */}
+              <button
+                id="btn-share"
+                onClick={handleShare}
+                className="w-full py-3.5 rounded-xl bg-white/8 border border-white/15 text-white font-bold text-sm tracking-wider hover:bg-white/12 hover:border-white/25 active:scale-[0.98] transition-all cursor-pointer backdrop-blur-sm"
+              >
+                分享合約至限動
+              </button>
 
-          {/* Share button */}
-          <button
-            id="btn-share"
-            onClick={handleShare}
-            className="w-full py-3.5 rounded-xl bg-white/8 border border-white/15 text-white font-bold text-sm tracking-wider hover:bg-white/12 hover:border-white/25 active:scale-[0.98] transition-all cursor-pointer backdrop-blur-sm"
-          >
-            分享合約至限動
-          </button>
+              {/* Success button */}
+              <button
+                id="btn-success"
+                onClick={onSuccess}
+                className="w-full py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-bold text-sm tracking-wider hover:bg-emerald-500/20 hover:border-emerald-500/40 active:scale-[0.98] transition-all cursor-pointer"
+              >
+                我已達成目標
+              </button>
 
-          {/* Success button */}
-          <button
-            id="btn-success"
-            onClick={onSuccess}
-            className="w-full py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-bold text-sm tracking-wider hover:bg-emerald-500/20 hover:border-emerald-500/40 active:scale-[0.98] transition-all cursor-pointer"
-          >
-            我已達成目標
-          </button>
-
-          {/* Give up */}
-          <button
-            id="btn-giveup"
-            onClick={onFail}
-            className="w-full py-2 text-white/25 text-xs font-medium hover:text-red-400/60 transition-colors cursor-pointer"
-          >
-            我放棄...
-          </button>
+              {/* Give up */}
+              <button
+                id="btn-giveup"
+                onClick={onFail}
+                className="w-full py-2 text-white/25 text-xs font-medium hover:text-red-400/60 transition-colors cursor-pointer"
+              >
+                我放棄...
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

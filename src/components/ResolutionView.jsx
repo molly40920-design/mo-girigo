@@ -1,11 +1,26 @@
 import { useState } from 'react'
 
-export default function ResolutionView({ wager, onReset }) {
+export default function ResolutionView({ wager, onReset, isViewer = false, hasLocalWager = false }) {
   const isSuccess = wager.result === 'success'
 
   const [showToast, setShowToast] = useState(false)
 
   const handleShare = async () => {
+    let shareUrl = window.location.href;
+    if (!isViewer) {
+      const url = new URL(window.location.href);
+      const data = {
+        g: wager.goal,
+        p: wager.penalty,
+        d: wager.deadline,
+        c: wager.createdAt,
+        s: wager.phase,
+        r: wager.result
+      };
+      url.searchParams.set('w', btoa(encodeURIComponent(JSON.stringify(data))));
+      shareUrl = url.toString();
+    }
+
     if (navigator.share) {
       try {
         await navigator.share({
@@ -13,7 +28,7 @@ export default function ResolutionView({ wager, onReset }) {
           text: isSuccess 
             ? `我成功達成了目標：「${wager.goal}」！\n這就是自律的實力！`
             : `我挑戰失敗了... \n目標：「${wager.goal}」\n我會乖乖兌現代價：「${wager.penalty}」`,
-          url: window.location.href
+          url: shareUrl
         })
         return
       } catch (err) {
@@ -93,20 +108,32 @@ export default function ResolutionView({ wager, onReset }) {
 
           {/* Buttons */}
           <div className="px-6 pb-8 space-y-3 relative z-10">
-            <button
-              id="btn-brag"
-              onClick={handleShare}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-gray-950 font-black text-sm tracking-wider shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-            >
-              炫耀戰果
-            </button>
-            <button
-              id="btn-new-success"
-              onClick={onReset}
-              className="w-full py-2.5 text-gray-500 text-xs font-medium hover:text-gray-300 transition-colors cursor-pointer"
-            >
-              發起新協議 →
-            </button>
+            {isViewer ? (
+              <button
+                id="btn-back-to-own-success"
+                onClick={() => { window.location.href = '/' }}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-gray-950 font-black text-sm tracking-wider shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              >
+                {hasLocalWager ? '查看我的專屬合約' : '我也要立下對賭合約'}
+              </button>
+            ) : (
+              <>
+                <button
+                  id="btn-brag"
+                  onClick={handleShare}
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-gray-950 font-black text-sm tracking-wider shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                >
+                  炫耀戰果
+                </button>
+                <button
+                  id="btn-new-success"
+                  onClick={onReset}
+                  className="w-full py-2.5 text-gray-500 text-xs font-medium hover:text-gray-300 transition-colors cursor-pointer"
+                >
+                  發起新協議 →
+                </button>
+              </>
+            )}
           </div>
 
           {/* Watermark */}
@@ -188,20 +215,32 @@ export default function ResolutionView({ wager, onReset }) {
 
         {/* Buttons */}
         <div className="px-6 pb-8 space-y-3">
-          <button
-            id="btn-face-reality"
-            onClick={handleShare}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-sm tracking-wider shadow-lg shadow-red-500/25 hover:shadow-red-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-          >
-            面對現實分享限動
-          </button>
-          <button
-            id="btn-new-fail"
-            onClick={onReset}
-            className="w-full py-2.5 text-gray-500 text-xs font-medium hover:text-gray-300 transition-colors cursor-pointer"
-          >
-            發起新協議 →
-          </button>
+          {isViewer ? (
+            <button
+              id="btn-back-to-own-fail"
+              onClick={() => { window.location.href = '/' }}
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-sm tracking-wider shadow-lg shadow-red-500/25 hover:shadow-red-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+            >
+              {hasLocalWager ? '查看我的專屬合約' : '我也要立下對賭合約'}
+            </button>
+          ) : (
+            <>
+              <button
+                id="btn-face-reality"
+                onClick={handleShare}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-sm tracking-wider shadow-lg shadow-red-500/25 hover:shadow-red-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              >
+                面對現實分享限動
+              </button>
+              <button
+                id="btn-new-fail"
+                onClick={onReset}
+                className="w-full py-2.5 text-gray-500 text-xs font-medium hover:text-gray-300 transition-colors cursor-pointer"
+              >
+                發起新協議 →
+              </button>
+            </>
+          )}
         </div>
 
         {/* Watermark */}
