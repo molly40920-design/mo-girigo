@@ -48,17 +48,16 @@ export default function ResolutionView({ wager, onReset, isViewer = false, hasLo
 
   if (isSuccess) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-full px-4 py-8 animate-fade-in-up">
+      <div className="flex flex-col items-center min-h-dvh px-4 py-6 animate-fade-in-up overflow-x-hidden">
         {/* Toast Notification */}
         {showToast && (
           <div className="fixed top-10 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up">
             <div className="bg-gray-800/90 backdrop-blur-md border border-white/20 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-2 whitespace-nowrap">
-
               <span className="text-sm font-medium tracking-wide">請截圖此畫面分享至限時動態</span>
             </div>
           </div>
         )}
-        <div className="w-full max-w-[380px] aspect-[9/16] bg-gradient-to-b from-emerald-950/90 to-gray-950/95 border border-emerald-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-sm animate-border-glow-green relative">
+        <div className="w-full max-w-[380px] my-auto min-h-[600px] bg-gradient-to-b from-emerald-950/90 to-gray-950/95 border border-emerald-500/30 rounded-2xl shadow-2xl flex flex-col backdrop-blur-sm animate-border-glow-green relative">
 
 
           {/* Header */}
@@ -149,17 +148,16 @@ export default function ResolutionView({ wager, onReset, isViewer = false, hasLo
 
   // Fail state
   return (
-    <div className="flex flex-col items-center justify-center min-h-full px-4 py-8 animate-fade-in-up">
+    <div className="flex flex-col items-center min-h-dvh px-4 py-6 animate-fade-in-up overflow-x-hidden">
       {/* Toast Notification */}
       {showToast && (
         <div className="fixed top-10 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up">
           <div className="bg-gray-800/90 backdrop-blur-md border border-white/20 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-2 whitespace-nowrap">
-
             <span className="text-sm font-medium tracking-wide">請截圖此畫面分享至限時動態</span>
           </div>
         </div>
       )}
-      <div className="w-full max-w-[380px] aspect-[9/16] bg-gradient-to-b from-red-950/90 to-gray-950/95 border border-red-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-sm animate-border-glow-red">
+      <div className="w-full max-w-[380px] my-auto min-h-[600px] bg-gradient-to-b from-red-950/90 to-gray-950/95 border border-red-500/30 rounded-2xl shadow-2xl flex flex-col backdrop-blur-sm animate-border-glow-red">
 
         {/* Header */}
         <div className="pt-10 pb-4 px-6 text-center">

@@ -19,9 +19,9 @@ export default function SetupView({ onSubmit }) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full px-4 py-8 animate-fade-in-up">
-      {/* Card Container - 9:16 aspect ratio for IG Story */}
-      <div className="w-full max-w-[380px] aspect-[9/16] bg-gray-900/80 border border-yellow-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-sm animate-border-glow">
+    <div className="flex flex-col items-center min-h-dvh px-4 py-6 animate-fade-in-up overflow-x-hidden">
+      {/* Card Container - Flexible height for small screens */}
+      <div className="w-full max-w-[380px] my-auto min-h-[600px] bg-gray-900/80 border border-yellow-500/30 rounded-2xl shadow-2xl flex flex-col backdrop-blur-sm animate-border-glow">
 
         {/* Header */}
         <div className="pt-8 pb-4 px-6 text-center border-b border-yellow-500/20">

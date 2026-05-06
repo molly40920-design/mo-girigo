@@ -68,7 +68,7 @@ export default function ActiveView({ wager, onSuccess, onFail, isViewer = false,
   }
 
   return (
-    <div className="min-h-dvh bg-black flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-dvh bg-black flex flex-col items-center relative overflow-x-hidden">
 
       {/* Toast Notification */}
       {showToast && (
@@ -101,7 +101,7 @@ export default function ActiveView({ wager, onSuccess, onFail, isViewer = false,
       </div>
 
       {/* Main Card */}
-      <div className="relative z-10 flex flex-col items-center w-full max-w-[380px] aspect-[9/16] px-6">
+      <div className="relative z-10 flex flex-col items-center w-full max-w-[380px] my-auto py-8 px-6 min-h-[600px]">
 
         {/* Top: Goal & Penalty info bar */}
         <div className="w-full mt-6 mb-4 space-y-2 animate-fade-in-up">
